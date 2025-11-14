@@ -21,7 +21,20 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'specialty_id',
+        'status'
     ];
+
+    public function specialty()
+    {
+        return $this->belongsTo(Specialty::class);
+    }
+
+    public function courseOfferings()
+    {
+        return $this->hasMany(CourseOffering::class, 'teacher_id');
+    }
 
     /**
      * The attributes that should be hidden for serialization.
