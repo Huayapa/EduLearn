@@ -1,0 +1,29 @@
+@urlbase = http://localhost:8000/api
+@token = 1|Yr06tee7jSB8K9oSvY4YiBUZuSseCCrlD4z5ZIXtc9271b9c
+###
+POST {{urlbase}}/login
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "josue@gmail.com",
+  "password": "12345678"
+}
+
+###
+POST {{urlbase}}/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "josue",
+  "email": "josue@gmail.com",
+  "password": "12345678"
+}
+
+###
+POST {{urlbase}}/logout
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
