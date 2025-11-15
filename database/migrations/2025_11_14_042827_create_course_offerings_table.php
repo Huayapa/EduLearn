@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('semester', ['1', '2', '3', '4', '5', '6', '7', '8'])->default('1');
             $table->year('year');
             $table->enum('shift', ['mañana', 'tarde', 'noche'])->default('tarde');
-            $table->string('classroom');
+            $table->string('classroom')->nullable();
             $table->enum('modality', ['presencial', 'virtual', 'hibrido'])->default('presencial');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
