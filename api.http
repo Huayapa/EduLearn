@@ -1,5 +1,6 @@
 @urlbase = http://localhost:8000/api
-@token = 1|Yr06tee7jSB8K9oSvY4YiBUZuSseCCrlD4z5ZIXtc9271b9c
+@token = 1|6KZqHORNO0GIZx52VRD2wSYzP8s2xvvHQguOd2Eqeec99355
+# LOGIN, REGISTER AND LOGOUT 
 ###
 POST {{urlbase}}/login
 Content-Type: application/json
@@ -27,3 +28,341 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
+
+
+
+
+
+
+
+
+
+
+
+
+# CRUD USUARIOS
+###
+GET {{urlbase}}/users
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+###
+GET {{urlbase}}/user/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+### 
+POST {{urlbase}}/user
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "profe",
+  "email": "profe@gmail.com",
+  "password": "12345678",
+  "specialty_id": 1,
+  "role": "instructor"
+}
+
+### 
+PUT {{urlbase}}/user/2
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "josue5"
+}
+
+### 
+DELETE {{urlbase}}/user/2
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+
+
+
+
+
+
+
+
+
+
+# CRUD ESTUDIANTES
+###
+GET {{urlbase}}/students
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+###
+GET {{urlbase}}/student/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+### 
+POST {{urlbase}}/student
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "josue1",
+  "code": "001712971",
+  "email": "josue1@gmail.com",
+  "dni": "88302012",
+  "semester": "1",
+  "date_of_birth": "2005-11-15T04:27:00.027000Z"
+}
+
+### 
+PUT {{urlbase}}/student/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "josue2",
+  "code": "001712971",
+  "email": "josue1@gmail.com",
+  "dni": "88302012",
+  "academic_status": "terminado",
+  "status": "active",
+  "semester": "2",
+  "date_of_birth": "2005-11-15T04:27:00.027000Z"
+}
+
+### 
+DELETE {{urlbase}}/student/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+
+
+
+
+
+
+
+# CRUD ESPECIALIDADES
+###
+GET {{urlbase}}/specialties
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+###
+GET {{urlbase}}/specialty/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+### 
+POST {{urlbase}}/specialty
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Matematicas",
+  "description": "Esto es matematicas"
+}
+
+### 
+PUT {{urlbase}}/specialty/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Matematicas",
+  "description": "Esto es matematicas profesional"
+}
+
+### 
+DELETE {{urlbase}}/specialty/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+# CRUD CURSOS
+###
+GET {{urlbase}}/courses
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+###
+GET {{urlbase}}/course/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+### 
+POST {{urlbase}}/course
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Matematicas Algebra",
+  "description": "Esto es algebra",
+  "code": "MAT-ALG-001"
+}
+
+### 
+PUT {{urlbase}}/course/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Matematicas Algebra",
+  "description": "Esto es algebra",
+  "code": "MAT-ALG-001",
+  "status": "active"
+}
+
+### 
+DELETE {{urlbase}}/course/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# CRUD CURSOS ASIGNACION DE CURSO
+###
+GET {{urlbase}}/course-offerings
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+###
+GET {{urlbase}}/course-offering/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+### 
+POST {{urlbase}}/course-offering
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "course_id": "1",
+  "teacher_id": "2",
+  "semester": "1",
+  "year": "2025",
+  "shift": "tarde",
+  "classroom": "TORREST911",
+  "modality": "presencial"
+}
+
+### 
+PUT {{urlbase}}/course-offering/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "course_id": "1",
+  "teacher_id": "2",
+  "semester": "1",
+  "year": "2025",
+  "shift": "tarde",
+  "classroom": "TORREST911",
+  "modality": "hibrido",
+  "status": "active"
+}
+
+### 
+DELETE {{urlbase}}/course-offering/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# CRUD MATRICULAS
+###
+GET {{urlbase}}/enrollments
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+###
+GET {{urlbase}}/enrollment/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+### 
+POST {{urlbase}}/enrollment
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "student_id": "1",
+  "course_offering_id": "1"
+}
+
+### 
+PUT {{urlbase}}/enrollment/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+
+{
+  "student_id": "1",
+  "course_offering_id": "1",
+  "status_enrollment": "completado",
+  "status": "active",
+  "final_grade": "14"
+}
+
+### 
+DELETE {{urlbase}}/enrollment/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}

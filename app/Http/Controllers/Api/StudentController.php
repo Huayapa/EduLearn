@@ -28,7 +28,8 @@ class StudentController extends Controller
             'code' => 'required|string|max:50|unique:students',
             'email' => 'required|string|email|max:255|unique:students',
             'dni' => 'required|string|max:20|unique:students',
-            'enrollment_number' => 'required|string|max:50|unique:students',
+            'semester' => 'sometimes|required|in:1,2,3,4,5,6,7,8',
+            'date_of_birth' => 'required|date',
         ]);
         $student = Student::create($validatedData);
         if ($student) {

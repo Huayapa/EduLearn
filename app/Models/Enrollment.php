@@ -12,7 +12,8 @@ class Enrollment extends Model
         'student_id',
         'course_offering_id',
         'status_enrollment',
-        'status'
+        'status',
+        'final_grade',
     ];
 
     public function student()

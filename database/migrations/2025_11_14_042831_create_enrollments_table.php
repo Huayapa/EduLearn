@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('course_offering_id')->constrained('course_offerings')->cascadeOnDelete();
             $table->enum('status_enrollment', ['inscrito', 'completado', 'retirado'])->default('inscrito');
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('final_grade')->nullable();
             $table->timestamps();
         });
     }

@@ -41,6 +41,7 @@ class EnrollmentController extends Controller
                 'course_offering_id' => 'sometimes|required|exists:course_offerings,id',
                 'status_enrollment' => 'sometimes|required|in:inscrito,completado,retirado',
                 'status' => 'sometimes|required|in:active,inactive',
+                'final_grade' => 'sometimes|nullable|string',
             ]);
             $enrollment->update($validatedData);
             return response()->json($enrollment);
