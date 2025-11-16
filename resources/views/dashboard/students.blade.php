@@ -4,7 +4,7 @@
     <div class="flex flex-col gap-[10px] py-[10px]">
         <button class="text-white p-[4px_10px] border border-[--primary] rounded-md 
         hover:bg-[--tertiary] hover:border-[--tertiary] 
-        transition-all duration-200">Crear Alumno</button>
+        transition-all duration-200" x-data x-on:click="$dispatch('open-modal', 'create-student')">Crear Alumno</button>
     </div>
 
     {{-- dropdown ver perfil y eso --}}
@@ -69,7 +69,16 @@
                     <td class="py-[1rem]">4to</td>
                     <td class="py-[1rem]">14/11/2003</td>
                     <td class="py-[1rem] flex gap-[10px] justify-center items-center">
-                        <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
+                        <button 
+                        x-data x-on:click="
+                            student = {
+                                id: 1,
+                                name: 'josue',
+                                email: 'josue@gmail.com',
+                            };
+                            $dispatch('open-modal', 'edit-student');
+                        "
+                        class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
                         <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
                     </td>
                 </tr>
@@ -85,7 +94,9 @@
                     <td class="py-[1rem]">4to</td>
                     <td class="py-[1rem]">14/11/2003</td>
                     <td class="py-[1rem] flex gap-[10px] justify-center items-center">
-                        <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
+                        <button 
+                        x-data x-on:click="$dispatch('open-modal', 'edit-student')"
+                        class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
                         <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
                     </td>
                 </tr>
@@ -101,7 +112,9 @@
                     <td class="py-[1rem]">4to</td>
                     <td class="py-[1rem]">14/11/2003</td>
                     <td class="py-[1rem] flex gap-[10px] justify-center items-center">
-                        <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
+                        <button 
+                        x-data x-on:click="$dispatch('open-modal', 'edit-student')"
+                        class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
                         <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
                     </td>
                 </tr>
@@ -114,4 +127,8 @@
         <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">3</button>
     </article>
   </section>
+
+  {{-- MODALES --}}
+  @include('modals.modalstudent')
 </x-app-layout>
+

@@ -4,7 +4,9 @@
     <div class="flex flex-row gap-[10px] py-[10px]">
         <button class="text-white p-[4px_10px] border border-[--primary] rounded-md 
         hover:bg-[--tertiary] hover:border-[--tertiary] 
-        transition-all duration-200">Crear Curso</button>
+        transition-all duration-200"
+        x-data x-on:click="$dispatch('open-modal', 'create-course')"
+        >Crear Curso</button>
     </div>
 
     {{-- dropdown ver perfil y eso --}}
@@ -47,7 +49,9 @@
         <div class="flex items-center gap-[10px] justify-between py-[5px]">
           <p class="rounded-md border border-[--blue] p-[4px_15px] bg-[--blue-body] text-white ">Activo</p>
           <div class="flex gap-[10px] justify-center items-center">
-            <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65 text-white">edit</button>
+            <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65 text-white"
+            x-data x-on:click="$dispatch('open-modal', 'edit-course')"
+            >edit</button>
             <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65 text-white">delete</button>
           </div>
         </div>
@@ -67,5 +71,6 @@
         <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">3</button>
     </article>
   </section>
-
+  {{-- MODALES --}}
+  @include('modals.modalcourse')
 </x-app-layout>
