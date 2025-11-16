@@ -1,5 +1,5 @@
 @urlbase = http://localhost:8000/api
-@token = 1|6KZqHORNO0GIZx52VRD2wSYzP8s2xvvHQguOd2Eqeec99355
+@token = 3|atpWWg7YXGp2wOYrK62V8T0TGDUbJvFtgBQbrkNP21fb0b42
 # LOGIN, REGISTER AND LOGOUT 
 ###
 POST {{urlbase}}/login
@@ -58,21 +58,21 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "profe",
-  "email": "profe@gmail.com",
+  "name": "profe2",
+  "email": "profe2@gmail.com",
   "password": "12345678",
   "specialty_id": 1,
   "role": "instructor"
 }
 
 ### 
-PUT {{urlbase}}/user/2
+PUT {{urlbase}}/user/3
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "josue5"
+  "name": "profe pepe"
 }
 
 ### 
@@ -110,10 +110,10 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "josue1",
-  "code": "001712971",
-  "email": "josue1@gmail.com",
-  "dni": "88302012",
+  "name": "pablo",
+  "code": "001712973",
+  "email": "josue2@gmail.com",
+  "dni": "84302012",
   "semester": "1",
   "date_of_birth": "2005-11-15T04:27:00.027000Z"
 }
@@ -167,19 +167,19 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "Matematicas",
-  "description": "Esto es matematicas"
+  "name": "Comunicacion",
+  "description": "Esto es comunicacion"
 }
 
 ### 
-PUT {{urlbase}}/specialty/1
+PUT {{urlbase}}/specialty/2
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "Matematicas",
-  "description": "Esto es matematicas profesional"
+  "name": "Comunicacion",
+  "description": "Esto es comunicacion 2"
 }
 
 ### 
@@ -218,21 +218,21 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "Matematicas Algebra",
-  "description": "Esto es algebra",
-  "code": "MAT-ALG-001"
+  "name": "Matematicas fisica",
+  "description": "Esto es fisica",
+  "code": "MAT-FIS-001"
 }
 
 ### 
-PUT {{urlbase}}/course/1
+PUT {{urlbase}}/course/2
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "Matematicas Algebra",
-  "description": "Esto es algebra",
-  "code": "MAT-ALG-001",
+  "name": "Matematicas fisica",
+  "description": "Esto es fisica 2",
+  "code": "MAT-FIS-001",
   "status": "active"
 }
 
@@ -344,7 +344,7 @@ Authorization: Bearer {{token}}
 
 {
   "student_id": "1",
-  "course_offering_id": "1"
+  "course_offering_id": "2"
 }
 
 ### 
