@@ -10,13 +10,12 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased overflow-x-hidden">
         <div class="min-h-screen bg-[--body] text-[--subtext] flex p-[20px] gap-[20px]">
             @include('layouts.navigation')
 
-
             <!-- Page Content -->
-            <main>
+            <main class="flex-1 flex bg-[--fourth] rounded-[20px] gap-[10px] p-[20px] w-full ">
                 {{ $slot }}
             </main>
         </div>

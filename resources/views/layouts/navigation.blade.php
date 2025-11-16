@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-[--fourth] rounded-[20px] flex flex-col items-center gap-[30px] p-[20px] w-full max-w-[20rem]">
+<nav x-data="{ open: false }" class="bg-[--fourth] rounded-[20px] flex-col items-center gap-[30px] p-[20px] w-full max-w-[20rem] hidden xl:flex">
     <a href="{{ route('dashboard') }}">
         <x-application-logo class="block fill-current text-[--primary] w-[200px]" />
     </a>
@@ -87,7 +87,87 @@
             Cerrar Sesión
         </button>
     </form>
+
+    
 </nav>
+
+
+<button onclick="document.getElementById('navmobile').classList.toggle('view')"
+class="material-icons block xl:hidden absolute bottom-[2rem] right-[2rem] text-white z-1 text-2xl rounded-full bg-[--tertiary] w-[50px] h-[50px]"
+>menu</button>
+
+<nav id="navmobile" 
+class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:hidden bottom-[6rem] items-end right-[2rem] gap-[10px] [&.view]:translate-x-0">
+
+    <a href="{{ route('dashboard') }}" 
+    class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
+    transition-all duration-300 
+    {{ request()->routeIs(patterns: 'dashboard') 
+        ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
+        : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
+    <span class="text-xl">Inicio</span>
+    <span class="material-icons text-xl">home</span>
+    </a>
+
+
+    <a href="{{ route('students') }}" 
+    class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
+    transition-all duration-300 
+    {{ request()->routeIs(patterns: 'students') 
+        ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
+        : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
+    <span class="text-xl">Alumnos</span>
+    <span class="material-icons text-xl">school</span>
+    </a>
+
+
+    <a href="{{ route('instructors') }}" 
+    class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
+    transition-all duration-300 
+    {{ request()->routeIs(patterns: 'instructors') 
+        ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
+        : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
+    <span class="text-xl">Docentes</span>
+    <span class="material-icons text-xl">co_present</span>
+    </a>
+
+
+    <a href="{{ route('courses') }}" 
+    class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
+    transition-all duration-300 
+    {{ request()->routeIs(patterns: 'courses') 
+        ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
+        : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
+    <span class="text-xl">Cursos</span>
+    <span class="material-icons text-xl">book</span>
+    </a>
+
+
+    <a href="{{ route('courseoffering') }}" 
+    class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
+    transition-all duration-300 
+    {{ request()->routeIs(patterns: 'courseoffering') 
+        ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
+        : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
+    <span class="text-xl">Asignación Curso</span>
+    <span class="material-icons text-xl">book</span>
+    </a>
+
+
+    <a href="{{ route('enrollments') }}" 
+    class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
+    transition-all duration-300 
+    {{ request()->routeIs(patterns: 'enrollments') 
+        ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
+        : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
+    <span class="text-xl">Matriculas</span>
+    <span class="material-icons text-xl">bookmark</span>
+    </a>
+
+    
+</nav>
+
+
 
 
 {{--  
