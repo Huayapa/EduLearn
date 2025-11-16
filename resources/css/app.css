@@ -14,6 +14,12 @@
   --fourth: #18181B;
   --subtext: #AFAFAF;
   --red: #B92222;
+  --red-body: #652222;
+  --green: #22B93E;
+  --green-body: #156323;
+  --blue: #61FAE9;
+  --blue-body: #003334;
+  --yellow: #B49E23;
 }
 
 @layer base {
@@ -29,3 +35,15 @@
 }
 
 
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

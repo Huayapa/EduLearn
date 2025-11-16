@@ -11,11 +11,11 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased overflow-x-hidden">
-        <div class="min-h-screen bg-[--body] text-[--subtext] flex p-[20px] gap-[20px]">
+        <div class="h-screen bg-[--body] text-[--subtext] flex p-[20px] gap-[20px]">
             @include('layouts.navigation')
 
             <!-- Page Content -->
-            <main class="flex-1 flex bg-[--fourth] rounded-[20px] gap-[10px] p-[20px] w-full ">
+            <main class="flex-1 flex flex-col bg-[--fourth] rounded-[20px] gap-[10px] p-[20px] w-full overflow-y-auto">
                 {{ $slot }}
             </main>
         </div>
