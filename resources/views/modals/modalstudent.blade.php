@@ -1,116 +1,184 @@
 <x-modal name="create-student">
-  <h1 class="text-2xl text-center font-bold">Crear Alumno</h1>
-  {{-- action="{{ route('') }}" --}}
-  <form method="POST" class="flex flex-col gap-[10px] mb-2">
-    @csrf
-    <div>
-      <x-input-label for="nameid" value="Nombre" />
-      <x-text-input id="nameid" type="text" name="nameid"
-      class="block mt-1 w-full" :value="old('nameid')" required autofocus autocomplete="nameid" />
-      <x-input-error :messages="$errors->get('nameid')" class="mt-2" />
-    </div>
-    <div>
-      <x-input-label for="emailid" value="Correo" />
-      <x-text-input id="emailid" type="email" name="emailid"
-      class="block mt-1 w-full" :value="old('emailid')" required autofocus autocomplete="emailid" />
-      <x-input-error :messages="$errors->get('emailid')" class="mt-2" />
-    </div>
-    <div class="flex flex-row gap-[10px]">
-      <div class="w-full">
-        <x-input-label for="codeid" value="Codigo" />
-        <x-text-input id="codeid" type="text" name="codeid"
-        class="block mt-1 w-full" :value="old('codeid')" required autofocus autocomplete="codeid" />
-        <x-input-error :messages="$errors->get('codeid')" class="mt-2" />
-      </div>
-      <div class="w-full">
-        <x-input-label for="dniid" value="DNI" />
-        <x-text-input id="dniid" type="text" name="dniid"
-        class="block mt-1 w-full" :value="old('dniid')" required autofocus autocomplete="dniid" />
-        <x-input-error :messages="$errors->get('dniid')" class="mt-2" />
-      </div>
-    </div>
-    <div class="flex flex-row gap-[10px]">
-      <div class="w-full">
-        <x-input-label for="semesterid" value="Semestre" />
-        <x-text-input id="semesterid" type="text" name="semesterid"
-        class="block mt-1 w-full" :value="old('semesterid')" required autofocus autocomplete="semesterid" />
-        <x-input-error :messages="$errors->get('semesterid')" class="mt-2" />
-      </div>
-      <div class="w-full">
-        <x-input-label for="datenacid" value="Fecha Nacimiento" />
-        <x-text-input id="datenacid" type="date" name="datenacid"
-        class="block mt-1 w-full" :value="old('datenacid')" required autofocus autocomplete="datenacid" />
-        <x-input-error :messages="$errors->get('datenacid')" class="mt-2" />
-      </div>
-    </div>
-    <x-primary-button class="w-full my-[10px]">
-      {{ __('Crear') }}
-    </x-primary-button>
-  </form>
+    <h1 class="text-2xl text-center font-bold">Crear Alumno</h1>
+
+    <form method="POST" action="{{ route('students.store') }}" class="flex flex-col gap-[10px] mb-2">
+        @csrf
+
+        <!-- NAME -->
+        <div>
+            <x-input-label for="name" value="Nombre" />
+            <x-text-input id="name" type="text" name="name"
+                class="block mt-1 w-full"
+                value="{{ old('name') }}"
+                required autocomplete="name"/>
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- EMAIL -->
+        <div>
+            <x-input-label for="email" value="Correo" />
+            <x-text-input id="email" type="email" name="email"
+                class="block mt-1 w-full"
+                value="{{ old('email') }}"
+                required autocomplete="email"/>
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- CODE + DNI -->
+        <div class="flex flex-row gap-[10px]">
+            <div class="w-full">
+                <x-input-label for="code" value="Código" />
+                <x-text-input id="code" type="text" name="code"
+                    class="block mt-1 w-full"
+                    value="{{ old('code') }}"
+                    required autocomplete="code"/>
+                <x-input-error :messages="$errors->get('code')" class="mt-2" />
+            </div>
+
+            <div class="w-full">
+                <x-input-label for="dni" value="DNI" />
+                <x-text-input id="dni" type="text" name="dni"
+                    class="block mt-1 w-full"
+                    value="{{ old('dni') }}"
+                    required autocomplete="dni"/>
+                <x-input-error :messages="$errors->get('dni')" class="mt-2" />
+            </div>
+        </div>
+
+        <!-- SEMESTER + DOB -->
+        <div class="flex flex-row gap-[10px]">
+            <div class="w-full">
+                <x-input-label for="semester" value="Semestre" />
+                <x-text-input id="semester" type="text" name="semester"
+                    class="block mt-1 w-full"
+                    value="{{ old('semester') }}"
+                    required autocomplete="semester"/>
+                <x-input-error :messages="$errors->get('semester')" class="mt-2" />
+            </div>
+
+            <div class="w-full">
+                <x-input-label for="date_of_birth" value="Fecha Nacimiento" />
+                <x-text-input id="date_of_birth" type="date" name="date_of_birth"
+                    class="block mt-1 w-full"
+                    value="{{ old('date_of_birth') }}"
+                    required autocomplete="date_of_birth"/>
+                <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
+            </div>
+        </div>
+
+        <x-primary-button class="w-full my-[10px]">
+            {{ __('Crear') }}
+        </x-primary-button>
+    </form>
 </x-modal>
 
 
 
 
 <x-modal name="edit-student">
-  <h1 class="text-2xl text-center font-bold">Editar Alumno</h1>
-  {{-- action="{{ route('') }}" --}}
-  <form method="POST" class="flex flex-col gap-[10px] mb-2">
-    @csrf
-    @method('PUT')
-    <input type="hidden" name="id" x-model="student.id">
-    <div>
-      <x-input-label for="nameid" value="Nombre" />
-      <x-text-input id="nameid" type="text" name="nameid"
-      class="block mt-1 w-full" required autofocus autocomplete="nameid" x-model="student.name"/>
-      <x-input-error :messages="$errors->get('nameid')" class="mt-2" />
-    </div>
-    <div>
-      <x-input-label for="emailid" value="Correo" />
-      <x-text-input id="emailid" type="email" name="emailid"
-      class="block mt-1 w-full" :value="old('emailid')" required autofocus autocomplete="emailid" />
-      <x-input-error :messages="$errors->get('emailid')" class="mt-2" />
-    </div>
-    <div class="flex flex-row gap-[10px]">
-      <div class="w-full">
-        <x-input-label for="codeid" value="Codigo" />
-        <x-text-input id="codeid" type="text" name="codeid"
-        class="block mt-1 w-full" :value="old('codeid')" required autofocus autocomplete="codeid" />
-        <x-input-error :messages="$errors->get('codeid')" class="mt-2" />
+  <div
+  x-data="{ student: {} }"
+  x-on:student-selected.window="student = $event.detail"
+  >
+    <h1 class="text-2xl text-center font-bold">Editar Alumno</h1>
+    {{-- action="{{ route('') }}" --}}
+    <form method="POST"  x-bind:action="`/students/${student.id}`" class="flex flex-col gap-[10px] mb-2">
+      @csrf
+      @method('PUT')
+      <input type="hidden" name="id" x-model="student.id">
+
+      <div>
+          <x-input-label for="name" value="Nombre" />
+          <x-text-input id="name" type="text" name="name"
+              class="block mt-1 w-full"
+              required autocomplete="name"
+              x-model="student.name"/>
+          <x-input-error :messages="$errors->get('name')" class="mt-2" />
       </div>
-      <div class="w-full">
-        <x-input-label for="dniid" value="DNI" />
-        <x-text-input id="dniid" type="text" name="dniid"
-        class="block mt-1 w-full" :value="old('dniid')" required autofocus autocomplete="dniid" />
-        <x-input-error :messages="$errors->get('dniid')" class="mt-2" />
+
+      <div>
+          <x-input-label for="email" value="Correo" />
+          <x-text-input id="email" type="email" name="email"
+              class="block mt-1 w-full"
+              required autocomplete="email"
+              x-model="student.email"/>
+          <x-input-error :messages="$errors->get('email')" class="mt-2" />
       </div>
-    </div>
-    <div class="flex flex-row gap-[10px]">
-      <div class="w-full">
-        <x-input-label for="semesterid" value="Semestre" />
-        <x-text-input id="semesterid" type="text" name="semesterid"
-        class="block mt-1 w-full" :value="old('semesterid')" required autofocus autocomplete="semesterid" />
-        <x-input-error :messages="$errors->get('semesterid')" class="mt-2" />
+
+      <div class="flex flex-row gap-[10px]">
+          <div class="w-full">
+              <x-input-label for="code" value="Código" />
+              <x-text-input id="code" type="text" name="code"
+                  class="block mt-1 w-full"
+                  required autocomplete="code"
+                  x-model="student.code"/>
+              <x-input-error :messages="$errors->get('code')" class="mt-2" />
+          </div>
+
+          <div class="w-full">
+              <x-input-label for="dni" value="DNI" />
+              <x-text-input id="dni" type="text" name="dni"
+                  class="block mt-1 w-full"
+                  required autocomplete="dni"
+                  x-model="student.dni"/>
+              <x-input-error :messages="$errors->get('dni')" class="mt-2" />
+          </div>
       </div>
-      <div class="w-full">
-        <x-input-label for="datenacid" value="Fecha Nacimiento" />
-        <x-text-input id="datenacid" type="date" name="datenacid"
-        class="block mt-1 w-full" :value="old('datenacid')" required autofocus autocomplete="datenacid" />
-        <x-input-error :messages="$errors->get('datenacid')" class="mt-2" />
+
+      <div class="flex flex-row gap-[10px]">
+          <div class="w-full">
+              <x-input-label for="semester" value="Semestre" />
+              <x-text-input id="semester" type="text" name="semester"
+                  class="block mt-1 w-full"
+                  required autocomplete="semester"
+                  x-model="student.semester"/>
+              <x-input-error :messages="$errors->get('semester')" class="mt-2" />
+          </div>
+
+          <div class="w-full">
+              <x-input-label for="date_of_birth" value="Fecha Nacimiento" />
+              <x-text-input id="date_of_birth" type="date" name="date_of_birth"
+                  class="block mt-1 w-full"
+                  required autocomplete="date_of_birth"
+                  x-model="student.date_of_birth"/>
+              <x-input-error :messages="$errors->get('date_of_birth')" class="mt-2" />
+          </div>
       </div>
-    </div>
-    <div>
-      <x-input-label for="statusid" value="Estado" />
-      <select name="statusid" id="statusid"
-      required autofocus autocomplete="statusid"
-      class="border-[--tertiary] focus:border-[--tertiary] focus:ring-[--tertiary] text-white rounded-md shadow-sm bg-[#353535] w-full"
-      >
-        <option>Selecciona el estado</option>
-      </select>
-      <x-input-error :messages="$errors->get('statusid')" class="mt-2" />
-    </div>
-    <x-primary-button class="w-full my-[10px]">
-      {{ __('Editar') }}
-    </x-primary-button>
-  </form>
+
+      <div>
+          <x-input-label for="academic_status" value="Estado Académico" />
+          <select name="academic_status" id="academic_status"
+              required autocomplete="academic_status"
+              class="border-[--tertiary] focus:border-[--tertiary] focus:ring-[--tertiary] text-white rounded-md shadow-sm bg-[#353535] w-full"
+              x-model="student.academic_status"
+          >
+              @foreach ($statusStudents as $status)
+                  <option value="{{ $status }}">
+                      {{ ucfirst($status) }}
+                  </option>
+              @endforeach
+          </select>
+          <x-input-error :messages="$errors->get('academic_status')" class="mt-2" />
+      </div>
+
+      <div>
+          <x-input-label for="status" value="Estado General" />
+          <select name="status" id="status"
+              required autocomplete="status"
+              class="border-[--tertiary] focus:border-[--tertiary] focus:ring-[--tertiary] text-white rounded-md shadow-sm bg-[#353535] w-full"
+              x-model="student.status"
+          >
+              @foreach ($statusS as $stat)
+                  <option value="{{ $stat }}">
+                      {{ ucfirst($stat) }}
+                  </option>
+              @endforeach
+          </select>
+          <x-input-error :messages="$errors->get('status')" class="mt-2" />
+      </div>
+      <x-primary-button class="w-full my-[10px]">
+        {{ __('Editar') }}
+      </x-primary-button>
+    </form>
+  </div>
 </x-modal>

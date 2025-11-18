@@ -21,5 +21,31 @@
                 {{ $slot }}
             </main>
         </div>
+        @if (session('success'))
+            <div 
+                x-data="{ show: true }"
+                x-show="show"
+                x-init="setTimeout(() => show = false, 3000)"
+                class="fixed top-5 left-1/2 transform -translate-x-1/2 
+                    bg-green-600 text-white px-5 py-3 rounded-lg shadow-lg 
+                    transition-all duration-500"
+            >
+                {{ session('success') }}
+            </div>
+        @endif
+        @if ($errors->any())
+            <div 
+                x-data="{ show: true }"
+                x-show="show"
+                x-init="setTimeout(() => show = false, 5000)"
+                class="fixed top-5 left-1/2 transform -translate-x-1/2
+                    bg-red-600 text-white px-5 py-3 rounded-lg shadow-lg
+                    transition-all duration-500 max-w-[90%] w-auto text-center"
+            >
+                {{-- Mostrar solo el primer error o todos --}}
+                {{ $errors->first() }}
+            </div>
+        @endif
     </body>
+
 </html>

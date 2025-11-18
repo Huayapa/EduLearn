@@ -57,75 +57,49 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="border-b border-[--tertiary]">
-                    <td class="py-[1rem]">01</td>
-                    <td class="py-[1rem]">Josue</td>
-                    <td class="py-[1rem]">001512971</td>
-                    <td class="py-[1rem]">001512971@edulearn.pe</td>
-                    <td class="py-[1rem]">77209123</td>
-                    <td class="py-[1rem]">
-                        <p class="rounded-md border border-[--blue] p-[4px_10px] bg-[--blue-body] ">Activo</p>
-                    </td>
-                    <td class="py-[1rem]">4to</td>
-                    <td class="py-[1rem]">14/11/2003</td>
-                    <td class="py-[1rem] flex gap-[10px] justify-center items-center">
-                        <button 
-                        x-data x-on:click="
-                            student = {
-                                id: 1,
-                                name: 'josue',
-                                email: 'josue@gmail.com',
-                            };
-                            $dispatch('open-modal', 'edit-student');
-                        "
-                        class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
-                        <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
-                    </td>
-                </tr>
-                <tr class="border-b border-[--tertiary]">
-                    <td class="py-[1rem]">01</td>
-                    <td class="py-[1rem]">Josue</td>
-                    <td class="py-[1rem]">001512971</td>
-                    <td class="py-[1rem]">001512971@edulearn.pe</td>
-                    <td class="py-[1rem]">77209123</td>
-                    <td class="py-[1rem]">
-                        <p class="rounded-md border border-[--red] p-[4px_10px] bg-[--red-body] ">Retirado</p>
-                    </td>
-                    <td class="py-[1rem]">4to</td>
-                    <td class="py-[1rem]">14/11/2003</td>
-                    <td class="py-[1rem] flex gap-[10px] justify-center items-center">
-                        <button 
-                        x-data x-on:click="$dispatch('open-modal', 'edit-student')"
-                        class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
-                        <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
-                    </td>
-                </tr>
-                <tr class="border-b border-[--tertiary]">
-                    <td class="py-[1rem]">01</td>
-                    <td class="py-[1rem]">Josue</td>
-                    <td class="py-[1rem]">001512971</td>
-                    <td class="py-[1rem]">001512971@edulearn.pe</td>
-                    <td class="py-[1rem]">77209123</td>
-                    <td class="py-[1rem]">
-                        <p class="rounded-md border border-[--green] p-[4px_10px] bg-[--green-body] ">Terminado</p>
-                    </td>
-                    <td class="py-[1rem]">4to</td>
-                    <td class="py-[1rem]">14/11/2003</td>
-                    <td class="py-[1rem] flex gap-[10px] justify-center items-center">
-                        <button 
-                        x-data x-on:click="$dispatch('open-modal', 'edit-student')"
-                        class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
-                        <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
-                    </td>
-                </tr>
+                @php
+                    $styles = [
+                        'activo' => 'bg-[--green-body] border-[--green]',
+                        'retirado' => 'bg-[--red-body] border-[--red]',
+                        'terminado' => 'bg-[--blue-body] border-[--blue]',
+                    ];
+                @endphp
+                @foreach ($students as $student)
+                    <tr class="border-b border-[--tertiary]">
+                        <td class="py-[1rem]">{{ $student->id }}</td>
+                        <td class="py-[1rem]">{{ $student->name }}</td>
+                        <td class="py-[1rem]">{{ $student->code }}</td>
+                        <td class="py-[1rem]">{{ $student->email }}</td>
+                        <td class="py-[1rem]">{{ $student->dni }}</td>
+                        <td class="py-[1rem]">
+                            <p class="rounded-md border  p-[4px_10px] {{ $styles[$student->academic_status] }}">{{ ucfirst($student->academic_status) }}</p>
+                        </td>
+                        <td class="py-[1rem]">{{ $student->semester }}ro</td>
+                        <td class="py-[1rem]">{{ $student->date_of_birth }}</td>
+                        <td class="py-[1rem] flex gap-[10px] justify-center items-center">
+                            <button 
+                            x-data
+                            @click="
+                                $dispatch('student-selected', @js($student));
+                                $dispatch('open-modal', 'edit-student');
+                            "
+                            class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65">edit</button>
+                            <form action="{{ route('students.destroy', $student->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este estudiante?')">
+                                @csrf
+                                @method('DELETE')
+                                <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </article>
-    <article class="w-full flex gap-[10px] items-center justify-center py-[1rem]">
+    {{-- <article class="w-full flex gap-[10px] items-center justify-center py-[1rem]">
         <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">1</button>
         <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">2</button>
         <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">3</button>
-    </article>
+    </article> --}}
   </section>
 
   {{-- MODALES --}}

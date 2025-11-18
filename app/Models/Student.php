@@ -8,6 +8,9 @@ class Student extends Model
 {
     protected $table = 'students';
 
+    const ACADEMIC_STATUS = ['activo', 'retirado', 'terminado'];
+    const STATUS = ['active', 'inactive'];
+
     protected $fillable = [
         'name',
         'code',

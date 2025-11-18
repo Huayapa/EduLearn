@@ -1,12 +1,12 @@
 <nav x-data="{ open: false }" class="bg-[--fourth] rounded-[20px] flex-col items-center gap-[30px] p-[20px] w-full max-w-[22rem] hidden xl:flex">
-    <a href="{{ route('dashboard') }}">
+    <a href="{{ route('dashboard.index') }}">
         <x-application-logo class="block fill-current text-[--primary] w-[200px]" />
     </a>
 
 
     <nav class="flex-1 flex flex-col text-white w-full gap-[10px]">
 
-        <a href="{{ route('dashboard') }}" 
+        <a href="{{ route('dashboard.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
         {{ request()->routeIs(patterns: 'dashboard') 
@@ -18,7 +18,7 @@
         </a>
 
 
-        <a href="{{ route('students') }}" 
+        <a href="{{ route('students.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
         {{ request()->routeIs(patterns: 'students') 
@@ -30,7 +30,7 @@
         </a>
 
 
-        <a href="{{ route('instructors') }}" 
+        <a href="{{ route('instructors.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
         {{ request()->routeIs(patterns: 'instructors') 
@@ -43,7 +43,7 @@
 
 
 
-        <a href="{{ route('courses') }}" 
+        <a href="{{ route('courses.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
         {{ request()->routeIs(patterns: 'courses') 
@@ -55,7 +55,7 @@
         </a>
 
 
-        <a href="{{ route('courseoffering') }}" 
+        <a href="{{ route('courseoffering.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
         {{ request()->routeIs(patterns: 'courseoffering') 
@@ -67,7 +67,7 @@
         </a>
 
 
-        <a href="{{ route('enrollments') }}" 
+        <a href="{{ route('enrollments.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
         {{ request()->routeIs(patterns: 'enrollments') 
@@ -99,7 +99,7 @@ class="material-icons block xl:hidden absolute bottom-[2rem] right-[2rem] text-w
 <nav id="navmobile" 
 class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:hidden bottom-[6rem] items-end right-[2rem] gap-[10px] [&.view]:translate-x-0">
 
-    <a href="{{ route('dashboard') }}" 
+    <a href="{{ route('dashboard.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
     {{ request()->routeIs(patterns: 'dashboard') 
@@ -110,7 +110,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     </a>
 
 
-    <a href="{{ route('students') }}" 
+    <a href="{{ route('students.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
     {{ request()->routeIs(patterns: 'students') 
@@ -121,7 +121,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     </a>
 
 
-    <a href="{{ route('instructors') }}" 
+    <a href="{{ route('instructors.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
     {{ request()->routeIs(patterns: 'instructors') 
@@ -132,7 +132,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     </a>
 
 
-    <a href="{{ route('courses') }}" 
+    <a href="{{ route('courses.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
     {{ request()->routeIs(patterns: 'courses') 
@@ -143,7 +143,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     </a>
 
 
-    <a href="{{ route('courseoffering') }}" 
+    <a href="{{ route('courseoffering.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
     {{ request()->routeIs(patterns: 'courseoffering') 
@@ -154,7 +154,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     </a>
 
 
-    <a href="{{ route('enrollments') }}" 
+    <a href="{{ route('enrollments.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
     {{ request()->routeIs(patterns: 'enrollments') 
