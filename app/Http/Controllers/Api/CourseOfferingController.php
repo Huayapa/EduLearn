@@ -46,7 +46,7 @@ class CourseOfferingController extends Controller
                 'teacher_id' => 'sometimes|required|exists:users,id',
                 'semester' => 'sometimes|required|in:1,2,3,4,5,6,7,8',
                 'year' => 'sometimes|required|integer',
-                'shift' => 'sometimes|in:"mañana","tarde",evening',
+                'shift' => 'sometimes|in:"mañana","tarde","noche',
                 'classroom' => 'nullable|string|max:100',
                 'modality' => 'sometimes|in:presencial,virtual,hibrido',
                 'status' => 'sometimes|required|in:active,inactive',

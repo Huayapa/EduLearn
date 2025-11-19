@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\SpecialtyController;
+use App\Http\Controllers\SpecialtyController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseOfferingController;
 use App\Http\Controllers\EnrollmentController;
@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('instructors/{user}', [UserController::class, 'update'])->name('instructors.update');
         Route::delete('instructors/{user}', [UserController::class, 'destroy'])->name('instructors.destroy');
         // SPECIALTIES
+        Route::get('specialties', [SpecialtyController::class, 'index'])->name('specialties.index');
         Route::post('specialties', [SpecialtyController::class, 'store'])->name('specialties.store');
         Route::put('specialties/{specialty}', [SpecialtyController::class, 'update'])->name('specialties.update');
         Route::delete('specialties/{specialty}', [SpecialtyController::class, 'destroy'])->name('specialties.destroy');

@@ -8,6 +8,8 @@ class Course extends Model
 {
     protected $table = 'courses';
 
+    const STATUSCOURSE = ['active', 'inactive'];
+
     protected $fillable = [
         'code',
         'name',

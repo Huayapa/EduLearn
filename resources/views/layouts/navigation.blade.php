@@ -9,7 +9,7 @@
         <a href="{{ route('dashboard.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
-        {{ request()->routeIs(patterns: 'dashboard') 
+        {{ request()->routeIs(patterns: 'dashboard.index') 
             ? 'bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)] border-[--primary]' 
             : 'bg-[var(--body)] border-transparent' }}">
     
@@ -21,7 +21,7 @@
         <a href="{{ route('students.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
-        {{ request()->routeIs(patterns: 'students') 
+        {{ request()->routeIs(patterns: 'students.index') 
             ? 'bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)] border-[--primary]' 
             : 'bg-[var(--body)] border-transparent' }}">
     
@@ -33,7 +33,7 @@
         <a href="{{ route('instructors.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
-        {{ request()->routeIs(patterns: 'instructors') 
+        {{ request()->routeIs(patterns: 'instructors.index') 
             ? 'bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)] border-[--primary]' 
             : 'bg-[var(--body)] border-transparent' }}">
     
@@ -46,7 +46,7 @@
         <a href="{{ route('courses.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
-        {{ request()->routeIs(patterns: 'courses') 
+        {{ request()->routeIs(patterns: 'courses.index') 
             ? 'bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)] border-[--primary]' 
             : 'bg-[var(--body)] border-transparent' }}">
     
@@ -58,7 +58,7 @@
         <a href="{{ route('courseoffering.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
-        {{ request()->routeIs(patterns: 'courseoffering') 
+        {{ request()->routeIs(patterns: 'courseoffering.index') 
             ? 'bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)] border-[--primary]' 
             : 'bg-[var(--body)] border-transparent' }}">
     
@@ -70,7 +70,7 @@
         <a href="{{ route('enrollments.index') }}" 
         class="flex items-center gap-[10px] border-l-[2px] p-[7px_10px] w-full rounded-br-[20px] 
         transition-all duration-300 hover:border-[--primary] hover:bg-[--tertiary]
-        {{ request()->routeIs(patterns: 'enrollments') 
+        {{ request()->routeIs(patterns: 'enrollments.index') 
             ? 'bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)] border-[--primary]' 
             : 'bg-[var(--body)] border-transparent' }}">
     
@@ -102,7 +102,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     <a href="{{ route('dashboard.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
-    {{ request()->routeIs(patterns: 'dashboard') 
+    {{ request()->routeIs(patterns: 'dashboard.index') 
         ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
         : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
     <span class="text-xl">Inicio</span>
@@ -113,7 +113,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     <a href="{{ route('students.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
-    {{ request()->routeIs(patterns: 'students') 
+    {{ request()->routeIs(patterns: 'students.index') 
         ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
         : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
     <span class="text-xl">Alumnos</span>
@@ -124,7 +124,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     <a href="{{ route('instructors.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
-    {{ request()->routeIs(patterns: 'instructors') 
+    {{ request()->routeIs(patterns: 'instructors.index') 
         ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
         : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
     <span class="text-xl">Docentes</span>
@@ -135,7 +135,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     <a href="{{ route('courses.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
-    {{ request()->routeIs(patterns: 'courses') 
+    {{ request()->routeIs(patterns: 'courses.index') 
         ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
         : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
     <span class="text-xl">Cursos</span>
@@ -146,7 +146,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     <a href="{{ route('courseoffering.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
-    {{ request()->routeIs(patterns: 'courseoffering') 
+    {{ request()->routeIs(patterns: 'courseoffering.index') 
         ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
         : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
     <span class="text-xl">Asignación Curso</span>
@@ -157,7 +157,7 @@ class="absolute translate-x-[140%] transition-all duration-300 flex flex-col xl:
     <a href="{{ route('enrollments.index') }}" 
     class="flex items-center gap-[10px] p-[5px_20px] w-fit rounded-[30px] 
     transition-all duration-300 
-    {{ request()->routeIs(patterns: 'enrollments') 
+    {{ request()->routeIs(patterns: 'enrollments.index') 
         ? 'bg-[--secondary] text-[--tertiary] hover:text-[--secondary] hover:bg-[--tertiary]' 
         : 'bg-[--tertiary] text-[--secondary] hover:text-[--tertiary] hover:bg-[--secondary]' }}">
     <span class="text-xl">Matriculas</span>

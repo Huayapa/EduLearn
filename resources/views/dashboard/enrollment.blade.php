@@ -44,31 +44,48 @@
   <section class="w-full flex-1 gap-[30px]">
     <h1 class="text-2xl font-bold text-white">Matriculas</h1>
     <article class="w-full py-[1rem] overflow-x-auto flex flex-wrap gap-[10px]">
-      @for ($i = 0; $i < 4; $i++)
+      @foreach ($enrollments as $enrollment)
       <section class="w-full xl:w-[calc(50%_-_10px)] bg-[--body] p-[13px_15px] rounded-xl border border-[--border]">
-        <div class="flex items-center gap-[10px] justify-between py-[5px]">
-          <p class="rounded-md border border-[--blue] p-[4px_15px] bg-[--blue-body] text-white ">Activo</p>
-          <div class="flex gap-[10px] justify-center items-center">
-            <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65 text-white"
-            x-data x-on:click="$dispatch('open-modal', 'edit-enrollment')"
-            >edit</button>
-            <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65 text-white">delete</button>
+          <div class="flex items-center gap-[10px] justify-between py-[5px]">
+              {{-- Estado del enrollment --}}
+              <p class="rounded-md p-[4px_15px] text-white {{ $enrollment->status == 'active' ? 'border border-[--blue] bg-[--blue-body]' : 'border border-[--red] bg-[--red-body]' }}">
+                  {{ ucfirst($enrollment->status) }}
+              </p>
+
+              {{-- Botones de acción --}}
+              <div class="flex gap-[10px] justify-center items-center">
+                  <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65 text-white"
+                          x-data 
+                          x-on:click="$dispatch('enrollment-selected', @js($enrollment)); $dispatch('open-modal', 'edit-enrollment')">
+                      edit
+                  </button>
+                  <form action="{{ route('enrollments.destroy', $enrollment->id) }}" method="POST" onsubmit="return confirm('¿Seguro que deseas eliminar este curso?')">
+                      @csrf
+                      @method('DELETE')
+                      <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
+                  </form>
+              </div>
           </div>
-        </div>
-        <div class="w-full flex flex-col gap-[5px]">
-          <h3 class="text-white text-2xl">Josue Huayapa</h3>
-          <span class="italic">Inscrito en el curso de Fisica cuantica</span>
-          <span class="italic">12/11/2025 - 6to Semestre - Profesor Pepito Gameplay</span>
-          <span class="italic">Fecha Finalizada: ninguna</span>
-          <p class="text-white text-2xl xl:text-3xl font-bold">Nota Final: En proceso</p>
-        </div>
+
+          {{-- Información del enrollment --}}
+          <div class="w-full flex flex-col gap-[5px]">
+              <h3 class="text-white text-2xl">{{ $enrollment->student->name }}</h3>
+              <span class="italic">
+                  Inscrito en el curso de {{ $enrollment->courseOffering->course->name }}
+              </span>
+              <span class="italic">
+                  {{ $enrollment->courseOffering->year }} - 
+                  {{ $enrollment->courseOffering->semester }} Semestre - 
+                  Profesor {{ $enrollment->courseOffering->teacher->name }} -
+                  {{ $enrollment->courseOffering->modality }} -
+                  {{ $enrollment->courseOffering->shift }}
+              </span>
+              <p class="text-white text-2xl xl:text-3xl font-bold">
+                  Nota Final: {{ $enrollment->final_grade ?? 'En proceso' }}
+              </p>
+          </div>
       </section>
-      @endfor
-    </article>
-    <article class="w-full flex gap-[10px] items-center justify-center py-[1rem]">
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">1</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">2</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">3</button>
+      @endforeach
     </article>
   </section>
   @include('modals.modalenrollment')

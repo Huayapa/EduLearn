@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Enrollment extends Model
 {
+    const STATUSENTROLLEMNT = ['inscrito', 'completado', 'retirado'];
+    const STATUS = ['active', 'inactive'];
     protected $table = 'enrollments';
 
     protected $fillable = [

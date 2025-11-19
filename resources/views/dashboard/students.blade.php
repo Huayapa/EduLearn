@@ -50,7 +50,7 @@
                     <th class="py-[1rem]">Codigo</th>
                     <th class="py-[1rem]">Correo</th>
                     <th class="py-[1rem]">DNI</th>
-                    <th class="py-[1rem]">Estado</th>
+                    <th class="py-[1rem]">Estado ADEMIC</th>
                     <th class="py-[1rem]">Semestre</th>
                     <th class="py-[1rem]">Nacimiento</th>
                     <th class="py-[1rem]">Opciones</th>

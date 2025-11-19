@@ -44,35 +44,42 @@
   <section class="w-full flex-1 gap-[30px]">
     <h1 class="text-2xl font-bold text-white">Gestión para asignación de los cursos</h1>
     <article class="w-full py-[1rem] overflow-x-auto flex flex-wrap gap-[10px]">
-      @for ($i = 0; $i < 8; $i++)
+      @foreach ($courseOfferings as $courseOffering)
       <section class="w-full md:w-[calc(50%_-_10px)] xl:w-[calc(33%_-_10px)] bg-[--body] p-[13px_15px] rounded-xl border border-[--border]">
         <div class="flex items-center gap-[10px] justify-between py-[5px]">
-          <p class="rounded-md border border-[--blue] p-[4px_15px] bg-[--blue-body] text-white ">Activo</p>
+          <p class="rounded-md border p-[4px_15px] text-white 
+            {{ $courseOffering->status === 'active' ? 'border-[--blue] bg-[--blue-body]' : 'border-[--red] bg-[--red-body]' }}">
+            {{ ucfirst($courseOffering->status) }}
+          </p>
           <div class="flex gap-[10px] justify-center items-center">
             <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65 text-white"
-            x-data x-on:click="$dispatch('open-modal', 'edit-courseoffering')"
-            >edit</button>
-            <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65 text-white">delete</button>
+              x-data 
+              x-on:click="$dispatch('course-offering-selected', @js($courseOffering)); $dispatch('open-modal', 'edit-courseoffering')"
+            >
+              edit
+            </button>
+            <form method="POST" action="{{ route('courseoffering.destroy', $courseOffering->id) }}" onsubmit="return confirm('¿Seguro que deseas eliminar esta asignación de curso?')">
+              @csrf
+              @method('DELETE')
+              <button type="submit" class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65 text-white">
+                delete
+              </button>
+            </form>
           </div>
         </div>
         <div class="w-full flex flex-col gap-[10px]">
-          <h3 class="text-white text-2xl">Matematica - fisica</h3>
-          <span class="italic">Profesor - Pepito gamer</span>
+          <h3 class="text-white text-2xl">{{ $courseOffering->course->name }} - {{ $courseOffering->modality }}</h3>
+          <span class="italic">Profesor - {{ $courseOffering->teacher->name }}</span>
           <ul class="list-disc pl-[1rem]">
-            <li>Valido: 5 Semestre</li>
-            <li>Año: 2025</li>
-            <li>Turno: Tarde</li>
-            <li>Aula: Torre 9/11</li>
-            <li>Modalidad: Battle Royale </li>
+            <li>Valido: {{ $courseOffering->semester }} Semestre</li>
+            <li>Año: {{ $courseOffering->year }}</li>
+            <li>Turno: {{ ucfirst($courseOffering->shift) }}</li>
+            <li>Aula: {{ $courseOffering->classroom ?? 'N/A' }}</li>
+            <li>Modalidad: {{ ucfirst($courseOffering->modality) }}</li>
           </ul>
         </div>
       </section>
-      @endfor
-    </article>
-    <article class="w-full flex gap-[10px] items-center justify-center py-[1rem]">
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">1</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">2</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">3</button>
+      @endforeach
     </article>
   </section>
   @include('modals.modalcoursepffering')

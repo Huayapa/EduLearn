@@ -18,13 +18,6 @@ class StudentController extends Controller
         return view('dashboard.students', compact('students', 'statusStudents', 'statusS'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -43,22 +36,6 @@ class StudentController extends Controller
         return redirect()
         ->route('students.index')
         ->with('success', 'Estudiante creado exitosamente.');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Student $student)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
-    {
-        //
     }
 
     /**

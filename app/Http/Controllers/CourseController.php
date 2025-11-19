@@ -12,15 +12,9 @@ class CourseController extends Controller
      */
     public function index()
     {
-        return view('dashboard.courses');
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $courses = Course::all();
+        $statusCourses = Course::STATUSCOURSE;
+        return view('dashboard.courses', compact('courses', 'statusCourses'));
     }
 
     /**
@@ -28,31 +22,37 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255|unique:courses',
+            'description' => 'required|string',
+            'code' => 'required|string|max:50|unique:courses'
+        ]);
+        Course::create($validatedData);
+        return redirect()
+        ->route('courses.index')
+        ->with('success', 'Curso creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Course $course)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Course $course)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Course $course)
     {
-        //
+        $course = Course::find($request->id);
+        if ($course) {
+            $validatedData = $request->validate([
+                'name' => 'required|string|max:255|unique:courses,name,'.$request->id,
+                'description' => 'required|string',
+                'code' => 'required|string|max:50|unique:courses,code,'.$request->id,
+                'status' => 'required|in:active,inactive',
+            ]);
+            $course->update($validatedData);
+            return redirect()
+            ->route('courses.index')
+            ->with('success', 'Curso actualizado correctamente.');
+        }
     }
 
     /**
@@ -60,6 +60,10 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        $course->delete();
+
+        return redirect()
+            ->route('courses.index')
+            ->with('success', 'Curso eliminado correctamente.');
     }
 }

@@ -29,9 +29,12 @@ class User extends Authenticatable
         'status'
     ];
 
+    const ROLES = ['admin', 'instructor'];
+    const STATUS = ['active', 'inactive'];
+
     public function specialty()
     {
-        return $this->belongsTo(Specialty::class);
+        return $this->belongsTo(Specialty::class, 'specialty_id');
     }
 
     public function courseOfferings()

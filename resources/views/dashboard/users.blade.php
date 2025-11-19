@@ -57,63 +57,73 @@
                     <th class="py-[1rem]">Correo</th>
                     <th class="py-[1rem]">Especialidad</th>
                     <th class="py-[1rem]">Rol</th>
-                    <th class="py-[1rem]">Codigo</th>
                     <th class="py-[1rem]">Estado</th>
                     <th class="py-[1rem]">Opciones</th>
                 </tr>
             </thead>
             <tbody>
-              @for ($i = 0; $i < 4; $i++)
+              @foreach ($users as $user)
               <tr class="border-b border-[--tertiary]">
-                  <td class="py-[1rem]">01</td>
-                  <td class="py-[1rem]">Pepito Gamer</td>
-                  <td class="py-[1rem]">pepito001@edulearn.pe</td>
-                  <td class="py-[1rem]">Matematica</td>
-                  <td class="py-[1rem]">Docente</td>
-                  <td class="py-[1rem]">pepito001</td>
+                  <td class="py-[1rem]">{{ $user->id }}</td>
+                  <td class="py-[1rem]">{{ $user->name }}</td>
+                  <td class="py-[1rem]">{{ $user->email }}</td>
+                  <td class="py-[1rem]">{{ $user->specialty->name ?? 'Sin especialidad'}}</td>
+                  <td class="py-[1rem]">{{ $user->role }}</td>
                   <td class="py-[1rem]">
-                      <p class="rounded-md border border-[--blue] p-[4px_10px] bg-[--blue-body] ">Activo</p>
+                      <p class="rounded-md p-[4px_15px] text-white {{ $user->status == 'active' ? 'border border-[--blue] bg-[--blue-body]' : 'border border-[--red] bg-[--red-body]' }}">
+                  {{ ucfirst($user->status) }}
+              </p>
                   </td>
                   <td class="py-[1rem] flex gap-[10px] justify-center items-center">
                       <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65"
-                      x-data x-on:click="$dispatch('open-modal', 'edit-user')"
+                      x-data 
+                      x-on:click="
+                      $dispatch('user-selected', @js($user));
+                      $dispatch('open-modal', 'edit-user');
+                      "
                       >edit</button>
-                      <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65">delete</button>
+                      <form method="POST" action="{{ route('instructors.destroy', $user->id) }}" onsubmit="return confirm('¿Seguro que deseas eliminar este docente?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65 text-white">
+                          delete
+                        </button>
+                      </form>
                   </td>
               </tr>
-              @endfor
+              @endforeach
             </tbody>
         </table>
-    </article>
-    <article class="w-full flex gap-[10px] items-center justify-center py-[1rem]">
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">1</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">2</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">3</button>
     </article>
   </section>
 
   <section class="w-full flex-1 gap-[30px]">
     <h1 class="text-2xl font-bold text-white">Gestión Especialidad</h1>
     <article class="w-full py-[1rem] flex gap-[10px] flex-wrap">
-      @for ($i = 0; $i < 8; $i++)
+      @foreach ($specialties as $specialty)
       <section class="w-full xl:w-[calc(50%_-_10px)] flex flex-col md:flex-row gap-[20px] bg-[--body] p-[10px] rounded-md justify-between items-center">
         <div class="text-white">
-          <h3 class="text-2xl">Matematicas</h3>
-          <p class="text-[--subtext]">Especialista en curso de matematica para calculos.</p>
+          <h3 class="text-2xl">{{ $specialty->name }}</h3>
+          <p class="text-[--subtext]">{{ $specialty->description }}</p>
         </div>
         <div class="flex gap-[10px] justify-center items-center">
           <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--yellow] text-xl hover:opacity-65 text-white"
-          x-data x-on:click="$dispatch('open-modal', 'edit-specialty')"
+          x-data 
+          x-on:click="
+          $dispatch('specialty-selected', @js($specialty)); 
+          $dispatch('open-modal', 'edit-specialty')
+          "
           >edit</button>
-          <button class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65 text-white">delete</button>
+          <form method="POST" action="{{ route('specialties.destroy', $specialty->id) }}" onsubmit="return confirm('¿Seguro que deseas eliminar este usuario?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="material-icons rounded-md w-[2.5rem] h-[2.5rem] bg-[--red] text-xl hover:opacity-65 text-white">
+              delete
+            </button>
+          </form>
         </div>
       </section>
-      @endfor
-    </article>
-    <article class="w-full flex gap-[10px] items-center justify-center py-[1rem]">
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">1</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">2</button>
-        <button class="w-[2rem] h-[2rem] flex justify-center items-center rounded-md bg-[--tertiary]">3</button>
+      @endforeach
     </article>
   </section>
 
