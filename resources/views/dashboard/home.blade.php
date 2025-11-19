@@ -44,25 +44,25 @@
     bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)]
     ">
         <h3 class="text-xl text-white">Total Alumnos</h3>
-        <p class="text-4xl text-white">10</p>
+        <p class="text-4xl text-white">{{ $totalstudents }}</p>
     </article>
     <article class="rounded-[10px] flex flex-col justify-between gap-[30px] p-[12px] w-full md:w-[calc(50%_-_10px)] 
     bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)]
     ">
-        <h3 class="text-xl text-white">Total Alumnos</h3>
-        <p class="text-4xl text-white">10</p>
+        <h3 class="text-xl text-white">Total Cursos</h3>
+        <p class="text-4xl text-white">{{ $totalcourses }}</p>
     </article>
     <article class="rounded-[10px] flex flex-col justify-between gap-[30px] p-[12px] w-full md:w-[calc(50%_-_10px)] 
     bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)]
     ">
-        <h3 class="text-xl text-white">Total Alumnos</h3>
-        <p class="text-4xl text-white">10</p>
+        <h3 class="text-xl text-white">Matriculas Activas</h3>
+        <p class="text-4xl text-white">{{ $totalenrollmentsactive }}</p>
     </article>
     <article class="rounded-[10px] flex flex-col justify-between gap-[30px] p-[12px] w-full md:w-[calc(50%_-_10px)] 
     bg-gradient-to-r from-[var(--tertiary)] to-[var(--primary)]
     ">
-        <h3 class="text-xl text-white">Total Alumnos</h3>
-        <p class="text-4xl text-white">10</p>
+        <h3 class="text-xl text-white">Docentes Activos</h3>
+        <p class="text-4xl text-white">{{ $totalusersactive }}</p>
     </article>
   </section>
 
@@ -74,43 +74,60 @@
         <h2 class="text-2xl text-white font-bold">Cursos Recientes</h2>
         <p>Ultimos cursos agregados en el sistema</p>
         <section class="flex flex-col gap-[10px]">
-            <div class="w-full bg-[#222222] flex items-center p-[20px_10px]">
-                <p class="text-white text-xl">Matematica 1</p>
-            </div>
-            <div class="w-full bg-[#222222] flex items-center p-[20px_10px]">
-                <p class="text-white text-xl">Matematica 1</p>
-            </div>
-            <div class="w-full bg-[#222222] flex items-center p-[20px_10px]">
-                <p class="text-white text-xl">Matematica 1</p>
-            </div>
+            @foreach ($coursesrecents as $coursesrecent)
+                <div class="w-full bg-[#222222] flex items-center p-[20px_10px]">
+                    <p class="text-white text-xl">{{ $coursesrecent->name }}</p>
+                </div>
+            @endforeach
         </section>
     </article>
     <article class="w-full flex flex-col gap-[10px]">
         <h2 class="text-2xl text-white font-bold">Matriculas Recientes</h2>
         <p>Ultimas matriculas agregadas en el sistema</p>
         <section class="flex flex-col gap-[10px]">
+            @foreach ( $enrollmentsrecents as $enrollment)
             <div class="w-full bg-white flex items-start justify-between p-[20px_10px] rounded-[10px]">
                 <div class="flex flex-col items-start gap-[10px]">
-                    <p class="text-xl text-[--fourth] font-bold">Josue Huayapa</p>
-                    <p class="text-m text-[--fourth]">Inscrito el: 09/11/2005</p>
-                    <p class="p-[4px_30px] text-white bg-[--red] rounded-[2rem] text-center">Finalizado</p>
+                    <p class="text-xl text-[--fourth] font-bold">{{ $enrollment->student->name }}</p>
+                    <p class="text-m text-[--fourth]">Inscrito el: {{ $enrollment->created_at->format('d/m/Y')}}</p>
+                    @php
+                        $styles = [
+                            'activo' => 'bg-[--green-body] border-[--green]',
+                            'retirado' => 'bg-[--red-body] border-[--red]',
+                            'terminado' => 'bg-[--blue-body] border-[--blue]',
+                        ];
+                    @endphp
+                    <p class="p-[4px_30px] text-white rounded-[2rem] text-center 
+                    {{ $styles[$enrollment->student->academic_status] }}">
+                    {{ ucfirst($enrollment->student->academic_status) }}
+                    </p>
                 </div>
-                <div class="flex flex-col items-start gap-[10px]">
-                    <a href="#" class="text-m text-[--fourth] underline">Ver Cursos</a>
+
+                <div class="flex flex-col items-start gap-[10px]" x-data="{ openCourses: false }">
+                    <a href="#" class="text-m text-[--fourth] underline"
+                    @click.prevent="$dispatch('open-modal', 'courses-modal-{{ $enrollment->id }}')">
+                    Ver Cursos
+                    </a>
+                    <x-modal name="courses-modal-{{ $enrollment->id }}">
+                        <div class="p-4">
+                            <h2 class="text-xl font-bold mb-3">Cursos del estudiante</h2>
+
+                            <div class="max-h-[300px] overflow-y-auto">
+                                @foreach ($enrollment->student->courses ?? [] as $item)
+                                    <div class="border-b py-2">
+                                        <p class="font-semibold">{{ $item->name }}</p>
+                                        <p class="text-sm text-gray-600">
+                                            Matriculado: {{ $item->created_at }}
+                                        </p>
+                                    </div>  
+                                @endforeach
+                            </div>
+                        </div>
+                    </x-modal>
                 </div>
                 
             </div>
-            <div class="w-full bg-white flex items-start justify-between p-[20px_10px] rounded-[10px]">
-                <div class="flex flex-col items-start gap-[10px]">
-                    <p class="text-xl text-[--fourth] font-bold">Josue Huayapa</p>
-                    <p class="text-m text-[--fourth]">Inscrito el: 09/11/2005</p>
-                    <p class="p-[4px_30px] text-white bg-[--green] rounded-[2rem] text-center">Activo</p>
-                </div>
-                <div class="flex flex-col items-start gap-[10px]">
-                    <a href="#" class="text-m text-[--fourth] underline">Ver Cursos</a>
-                </div>
-                
-            </div>
+            @endforeach
         </section>
     </article>
   </section>
