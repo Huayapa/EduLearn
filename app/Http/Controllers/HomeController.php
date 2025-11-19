@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\CourseOffering;
 use App\Models\Enrollment;
 use App\Models\Student;
 use App\Models\User;
@@ -25,9 +26,15 @@ class HomeController extends Controller
                         ->latest()
                         ->take(2)
                         ->get();
-        $coursesenrollment = Course::orderBy('created_at', 'desc')
+        $coursesenrollment = CourseOffering::with('course')   // ← aquí está el nombre del curso
+                        ->withCount('enrollments')                       // ← aquí está el contador
+                        ->orderBy('created_at', 'desc')
                         ->take(5)
                         ->get();
+        $courses = CourseOffering::withCount('enrollments')
+            ->orderBy('enrollments_count', 'desc')
+            ->take(5)
+            ->get();
         return view('dashboard.home', compact(
             'totalstudents',
             'totalcourses',
@@ -35,7 +42,8 @@ class HomeController extends Controller
             'totalusersactive',
             'coursesrecents',
             'enrollmentsrecents',
-            'coursesenrollment'
+            'coursesenrollment',
+            'courses'
         ));
     }
 }

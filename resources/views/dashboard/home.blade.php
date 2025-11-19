@@ -140,53 +140,115 @@
     <article class="w-full flex flex-col gap-[10px]">
         <h2 class="text-2xl text-white font-bold">Matriculas por Curso</h2>
         <section class="flex flex-col gap-[10px]">
-            <div class="w-full flex items-center gap-[10px]">
-                <h3 class="text-xl text-white font-bold">Matematicas</h3>
-                <div class="w-full bg-[--primary] rounded-[30px]">
-                    <div class="bg-[--tertiary] p-[5px_40px] w-[30%] text-center rounded-[30px]">3</div>
+            @php
+                $max = $coursesenrollment->max('enrollments_count') ?: 1;
+            @endphp
+
+            @foreach ($coursesenrollment as $courseenrollment)
+                <div class="w-full flex items-center gap-[10px] my-2">
+                    <h3 class="text-lg text-white font-bold w-[180px]">{{ $courseenrollment->course->name }}</h3>
+
+                    @php
+                        $porcentaje = $max > 0 ? ($courseenrollment->enrollments_count / $max) * 100 : 0;
+                    @endphp
+
+                    <div class="w-full bg-[--primary] rounded-[30px] overflow-hidden progress-container">
+                        <div
+                            class="barra"
+                            data-width="{{ round($porcentaje, 2) }}"
+                            aria-valuenow="{{ $courseenrollment->enrollments_count }}"
+                            aria-valuemax="{{ $max }}">
+                            {{ $courseenrollment->enrollments_count }}
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="w-full flex items-center gap-[10px]">
-                <h3 class="text-xl text-white font-bold">Programación</h3>
-                <div class="w-full bg-[--primary] rounded-[30px]">
-                    <div class="bg-[--tertiary] p-[5px_40px] w-[40%] text-center rounded-[30px]">6</div>
-                </div>
-            </div>
-            <div class="w-full flex items-center gap-[10px]">
-                <h3 class="text-xl text-white font-bold">Panaderia</h3>
-                <div class="w-full bg-[--primary] rounded-[30px]">
-                    <div class="bg-[--tertiary] p-[5px_40px] w-[10%] text-center rounded-[30px]">1</div>
-                </div>
-            </div>
-            <div class="w-full flex items-center gap-[10px]">
-                <h3 class="text-xl text-white font-bold">Odontologia</h3>
-                <div class="w-full bg-[--primary] rounded-[30px]">
-                    <div class="bg-[--tertiary] p-[5px_40px] w-[50%] text-center rounded-[30px]">5</div>
-                </div>
-            </div>
-            <div class="w-full flex items-center gap-[10px]">
-                <h3 class="text-xl text-white font-bold">Medicina</h3>
-                <div class="w-full bg-[--primary] rounded-[30px]">
-                    <div class="bg-[--tertiary] p-[5px_40px] text-center rounded-[30px] w-[80%]">20</div>
-                </div>
-            </div>
+            @endforeach
         </section>
     </article>
     <article class="w-full flex flex-col gap-[10px]">
-        <h2 class="text-2xl text-white font-bold">Alumnos por Bloques</h2>
-        <section class="flex flex-row gap-[40px] justify-center">
-            <div class="bg-[--primary] rounded-full w-[200px] h-[200px]"></div>
-            <div class="flex flex-col gap-[10px]">
-                <div class="flex gap-[10px] items-center">
-                    <div class="bg-[--primary] w-[1rem] h-[1rem] border border-white rounded-sm"></div>
-                    <p>5 alumnos</p>
-                </div>
-                <div class="flex gap-[10px] items-center">
-                    <div class="bg-[--primary] w-[1rem] h-[1rem] border border-white rounded-sm"></div>
-                    <p>5 alumnos</p>
-                </div>
+        @php
+            $total = $courses->sum('enrollments_count');
+        @endphp
+        @php
+            $gradientes = [];
+            $acumulado = 0;
+
+            foreach ($courses as $index => $item) {
+                $porcentaje = $total > 0 ? ($item->enrollments_count / $total) * 100 : 0;
+                $color = "hsl(" . ($index * 60) . ", 70%, 50%)";
+
+                $gradientes[] = "$color $acumulado% " . ($acumulado + $porcentaje) . "%";
+
+                $acumulado += $porcentaje;
+            }
+
+            $fondo = implode(', ', $gradientes);
+        @endphp
+
+        <h2 class="text-2xl text-white font-bold mb-4">Alumnos por Asignatura</h2>
+
+        <section class="flex flex-row gap-[40px] justify-center items-center">
+            <div id="grafico" style="width: 260px; height: 260px;"></div>
+
+            <div class="flex flex-col gap-[10px] text-white">
+                @foreach ($courses as $item)
+                    <div class="flex items-center gap-2">
+                        <div class="w-4 h-4 rounded-sm"
+                            style="background-color: hsl({{ $loop->index * 60 }}, 70%, 50%);">
+                        </div>
+                        <p>{{ $item->name }}: {{ $item->enrollments_count }} alumnos</p>
+                    </div>
+                @endforeach
             </div>
         </section>
     </article>
   </section>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".barra").forEach(bar => {
+            let raw = bar.getAttribute("data-width");
+            if (raw === null) raw = "0";
+            raw = raw.toString().replace(',', '.');
+            let num = parseFloat(raw);
+            if (isNaN(num)) num = 0;
+            num = Math.max(0, Math.min(100, num));
+
+            bar.style.width = "0%";
+
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    bar.style.width = num + "%";
+                }, 40);
+            });
+        });
+    });
+    const data = [
+        @foreach ($courses as $item)
+            {
+                value: {{ $item->enrollments_count }},
+                name: "{{ $item->name }}",
+                itemStyle: {
+                    color: "hsl({{ $loop->index * 60 }}, 70%, 50%)"
+                }
+            },
+        @endforeach
+    ];
+
+    const chart = echarts.init(document.getElementById('grafico'));
+
+    chart.setOption({
+        series: [
+            {
+                type: 'pie',
+                radius: ['50%', '80%'], // dona
+                animation: true,
+                animationDuration: 1200,
+                animationEasing: 'cubicOut',
+                avoidLabelOverlap: false,
+                label: { show: false },
+                data: data
+            }
+        ]
+    });
+</script>
 </x-app-layout>

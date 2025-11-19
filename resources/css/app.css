@@ -47,3 +47,48 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.grafico-circulo {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    position: relative;
+
+    /* variable que animamos */
+    --p: 0;
+    --fondo: none;
+
+    background: conic-gradient(from 0deg, var(--fondo) calc(var(--p)*1%), #333 0);
+
+    animation: llenar 1.8s ease-out forwards;
+}
+
+@keyframes llenar {
+    from { --p: 0; }
+    to   { --p: 1; }
+}
+.slice {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    clip-path: circle(50%);
+    background-color: red;
+    transform-origin: center;
+}
+
+.progress-container { height: 44px; } 
+.barra {
+    display: block;
+    height: 100%;
+    box-sizing: border-box;      
+    padding: 5px 16px;           
+    text-align: center;
+    background: var(--tertiary);
+    width: 0;                   
+    color: white;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    transition: width 900ms cubic-bezier(.22,.9,.32,1);
+    border-radius: 30px;
+}

@@ -8,6 +8,7 @@
         <title>{{ config('app.name', 'EduLearn') }}</title>
         <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
         <script src="//unpkg.com/alpinejs" defer></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,6 +47,7 @@
                 {{ $errors->first() }}
             </div>
         @endif
+        
     </body>
 
 </html>
